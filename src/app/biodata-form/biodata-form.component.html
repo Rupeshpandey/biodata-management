@@ -1,0 +1,81 @@
+<div class="container mt-4">
+    <h2>Create Bio Data</h2>
+    <form [formGroup]="biodataForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" id="name" formControlName="name" class="form-control">
+      </div>
+  
+      <div class="mb-3">
+        <label for="fatherName" class="form-label">Father's Name</label>
+        <input type="text" id="fatherName" formControlName="fatherName" class="form-control">
+      </div>
+  
+      <div class="mb-3">
+        <label for="dob" class="form-label">Date of Birth</label>
+        <input type="date" id="dob" formControlName="dob" class="form-control">
+      </div>
+  
+      <div class="mb-3">
+        <label for="nationality" class="form-label">Nationality</label>
+        <select id="nationality" formControlName="nationality" class="form-control">
+          <option value="Indian">Indian</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+  
+      <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea id="address" formControlName="address" class="form-control"></textarea>
+      </div>
+  
+      <h4>Qualifications</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Course Name</th>
+            <th>University</th>
+            <th>Passing Year</th>
+            <th>Percentage</th>
+            <th>Add</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="qualifications">
+          <tr *ngFor="let qualification of qualifications.controls; let i=index" [formGroupName]="i">
+            <td><input type="text" formControlName="courseName" class="form-control"></td>
+            <td><input type="text" formControlName="university" class="form-control"></td>
+            <td><input type="number" formControlName="passingYear" class="form-control"></td>
+            <td><input type="number" formControlName="percentage" class="form-control"></td>
+            <td><button type="button" (click)="addQualification()" class="btn btn-primary">Add</button></td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <h4>Documents</h4>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Upload</th>
+            <th>Add</th>
+          </tr>
+        </thead>
+        <tbody formArrayName="documents">
+          <tr *ngFor="let document of documents.controls; let i=index" [formGroupName]="i">
+            <td>
+              <select formControlName="type" class="form-control">
+                <option value="Aadhar">Aadhar</option>
+                <option value="PAN">PAN</option>
+                <option value="Voter Card">Voter Card</option>
+              </select>
+            </td>
+            <td><input type="file" (change)="onFileSelected($event, i)" class="form-control"></td>
+            <td><button type="button" (click)="addDocument()" class="btn btn-primary">Add</button></td>
+          </tr>
+        </tbody>
+      </table>
+  
+      <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+  </div>
+  
